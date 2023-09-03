@@ -22,6 +22,14 @@ public class EmployeeFilterSort {
                 .collect(Collectors.toList());
     }
 
+    public List<String> findListOfDepts(List<Employee> employees){
+        return employees
+                .stream()
+                .map(Employee::getEmployeeDept)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
     public Map<String, Integer> countEmployeeByDept(List<Employee> employees) {
         return employees
                 .stream()

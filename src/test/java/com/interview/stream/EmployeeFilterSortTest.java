@@ -45,6 +45,17 @@ class EmployeeFilterSortTest {
     }
 
     @Test
+    void findListOfDepts() {
+        List<String> sortedEmployees = employeeFilterSort.findListOfDepts(employees);
+
+        // Validate the sorting logic
+        assertEquals("Engineering", sortedEmployees.get(0));
+        assertEquals("HR", sortedEmployees.get(1));
+
+    }
+
+
+    @Test
     void countEmployeeByDept() {
         Map<String, Integer> result = employeeFilterSort.countEmployeeByDept(employees);
         assertThat(result).isNotNull();

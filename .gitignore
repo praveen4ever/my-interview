@@ -9,7 +9,9 @@
 
 .idea
 target
-.DS_Store
+*.DS_Store
+*src/*/.DS_Store
+*target/*/.DS_Store
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

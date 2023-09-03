@@ -1,14 +1,14 @@
 package com.interview.stream;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class EmployeeFilterSortTest {
 
@@ -25,41 +25,42 @@ class EmployeeFilterSortTest {
     }
 
     @Test
-    void sortEmployee() {
+    @DisplayName("Should sort employees by their natural ordering")
+    void shouldSortEmployeesByNaturalOrder() {
         List<Employee> sortedEmployees = employeeFilterSort.sortEmployee(employees);
 
-        // Validate the sorting logic
-        assertEquals("Zara", sortedEmployees.get(0).getEmployeeName());
-        assertEquals("John", sortedEmployees.get(1).getEmployeeName());
-        assertEquals("Alex", sortedEmployees.get(2).getEmployeeName());
+        assertThat(sortedEmployees)
+                .extracting(Employee::getEmployeeName)
+                .containsExactly("Zara", "John", "Alex");
     }
 
     @Test
-    void sortEmployeeBySalary() {
+    @DisplayName("Should sort employees by salary")
+    void shouldSortEmployeesBySalary() {
         List<Employee> sortedEmployees = employeeFilterSort.sortEmployeeBySalary(employees);
 
-        // Validate the sorting logic
-        assertEquals("John", sortedEmployees.get(0).getEmployeeName());
-        assertEquals("Zara", sortedEmployees.get(1).getEmployeeName());
-        assertEquals("Alex", sortedEmployees.get(2).getEmployeeName());
+        assertThat(sortedEmployees)
+                .extracting(Employee::getEmployeeName)
+                .containsExactly("John", "Zara", "Alex");
     }
 
     @Test
-    void findListOfDepts() {
-        List<String> sortedEmployees = employeeFilterSort.findListOfDepts(employees);
+    @DisplayName("Should return distinct departments")
+    void shouldReturnDistinctDepartments() {
+        List<String> distinctDepartments = employeeFilterSort.getDistinctDepartments(employees);
 
-        // Validate the sorting logic
-        assertEquals("Engineering", sortedEmployees.get(0));
-        assertEquals("HR", sortedEmployees.get(1));
-
+        assertThat(distinctDepartments)
+                .containsExactly("Engineering", "HR");
     }
 
-
     @Test
-    void countEmployeeByDept() {
+    @DisplayName("Should count employees by department")
+    void shouldCountEmployeesByDepartment() {
         Map<String, Integer> result = employeeFilterSort.countEmployeeByDept(employees);
+
         assertThat(result).isNotNull();
-        assertThat(result.get("Engineering")).isEqualTo(1);
-        assertThat(result.get("HR")).isEqualTo(2);
+        assertThat(result)
+                .containsEntry("Engineering", 1)
+                .containsEntry("HR", 2);
     }
 }

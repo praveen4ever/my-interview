@@ -1,5 +1,6 @@
 package com.interview.stream;
 
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,5 +63,34 @@ class EmployeeFilterSortTest {
         assertThat(result)
                 .containsEntry("Engineering", 1)
                 .containsEntry("HR", 2);
+    }
+
+    @Test
+    @DisplayName("Should increment employees by department")
+    void shouldIncrementSalariesByDept(){
+        List<Employee> updatedEmployees = employeeFilterSort.incrementSalaryByDept(employees,"HR",2);
+        assertThat(updatedEmployees).isNotNull();
+        assertThat(updatedEmployees)
+                .extracting(Employee::getEmployeeName,Employee::getEmployeeSalary)
+                .contains(
+                        Tuple.tuple("John",51000),
+                        Tuple.tuple("Alex",70000),
+                        Tuple.tuple("Zara",61200)
+                );
+    }
+
+
+    @Test
+    @DisplayName("Should not increment employees by department")
+    void shouldNotIncrementSalariesByDept(){
+        List<Employee> updatedEmployees = employeeFilterSort.incrementSalaryByDept(employees,"Developer",1);
+        assertThat(updatedEmployees).isNotNull();
+        assertThat(updatedEmployees)
+                .extracting(Employee::getEmployeeName,Employee::getEmployeeSalary)
+                .contains(
+                        Tuple.tuple("John",50000),
+                        Tuple.tuple("Alex",70000),
+                        Tuple.tuple("Zara",60000)
+                );
     }
 }

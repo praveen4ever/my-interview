@@ -1,5 +1,7 @@
 package com.interview.stream;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * This class provides methods to manipulate Employee objects.
  */
+@Service
 public class EmployeeFilterSort {
 
     /**
@@ -63,5 +66,24 @@ public class EmployeeFilterSort {
                                 Long::intValue
                         )
                 ));
+    }
+
+    /**
+     * Increment the salary of employees in a specific department by a given percentage.
+     *
+     * @param employees  The list of Employee objects.
+     * @param dept       The department name for which the salary increment is applicable.
+     * @param percentage The percentage by which to increase the salary.
+     * @return A new list containing Employee objects with updated salaries.
+     */
+    public List<Employee> incrementSalaryByDept(List<Employee> employees, String dept,int percentage){
+        return List.copyOf(employees.stream()
+                .map(a-> {
+                    if(a.getEmployeeDept().equals(dept)){
+                        a.setEmployeeSalary(a.getEmployeeSalary()+(a.getEmployeeSalary()*percentage/100));
+                    }
+                    return a;
+                })
+                .collect(Collectors.toList()));
     }
 }

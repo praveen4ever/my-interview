@@ -1,5 +1,7 @@
 package com.interview.solving;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Logical problem to find the second largest element in the array
  */
+@Service
 public class SecondLargestInList {
     /**
      *  Input as array of integer and output will be the second largest element in that array

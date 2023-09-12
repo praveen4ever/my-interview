@@ -1,5 +1,7 @@
 package com.interview.solving;
 
+import java.util.stream.IntStream;
+
 /**
  * The {@code ReverseArray} class provides a method for reversing an integer array.
  * It reverses the elements of the input array in-place.
@@ -19,6 +21,17 @@ public class ReverseArray {
             input[i] = input[length - 1 - i];
             input[length - 1 - i] = temp;
         }
+        return input;
+    }
+
+
+    public int[] processV2(int[] input){
+        int length = input.length;
+        IntStream.range(0,length/2).forEach( i -> {
+            int temp = input[i];
+            input[i] = input[length - 1 - i];
+            input[length - 1 - i] = temp;
+       });
         return input;
     }
 }
